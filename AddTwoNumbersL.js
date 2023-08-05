@@ -1,22 +1,22 @@
 class Node{
-    constructor(value, next=null){
-        this.value = value;
+    constructor(val=0, next=null){
+        this.val = val;
         this.next = next;
     }
 }
 
 class ListNode {
-    constructor(value){
-        let node = new Node(value);
+    constructor(val=0){
+        let node = new Node(val);
         this.head = this.tail = node;
-        this.length = 1;
+        // this.length = 1;
     }
 
-    insertNumber(value){
-        let node = new Node(value);
+    insertNumber(val){
+        let node = new Node(val);
         this.tail.next = node;
         this.tail = node;
-        this.length++;
+        // this.length++;
     }
 }
 
@@ -24,7 +24,9 @@ var addTwoNumbers = function(l1, l2) {
     let sumArr = [];
     let list1 = new ListNode(l1[0])
     let list2 = new ListNode(l2[0])
+    let list3 = new ListNode((l1[0]+l2[0])%10)
     let c1=1, c2 =1;
+    let carry=parseInt((l1[0]+l2[0])/10);
     if(l1.length > 1){
         for(let i=1; i<l1.length; i++){
             list1.insertNumber(l1[i])
@@ -38,78 +40,91 @@ var addTwoNumbers = function(l1, l2) {
         }
     }
     if(c1>=c2){
-        let data1 = list1.head;
-        let data2 = list2.head
+        let data1 = list1.head.next;
+        let data2 = list2.head.next
         let sum =0;
-     
-        let carry=0;
+        
         while(data1){
             if(data2){
-                sum = data1.value + data2.value+ carry;
+                sum = data1.val + data2.val+ carry;
                 if(sum>=10){
                     carry=1;
                     sum= sum %10;
-                    sumArr.push(sum)
+                    list3.insertNumber(sum)
                 }else{
                     carry =0;
-                    sumArr.push(sum)
+                    list3.insertNumber(sum)
                 }
                 data2 = data2.next
             }else{
-                sum = data1.value + carry;
+                sum = data1.val + carry;
                 if(sum>=10){
                     carry=1;
                     sum= sum %10;
-                    sumArr.push(sum)
+                    list3.insertNumber(sum)
                 }else{
                     carry =0;
-                    sumArr.push(sum)
+                    list3.insertNumber(sum)
                 }
             }
             data1 = data1.next;
             
         }
         if(carry){
-            sumArr.push(carry)
+            list3.insertNumber(sum)
         }
     }else{
-        let data1 = list1.head;
-        let data2 = list2.head
+        let data1 = list1.head.next;
+        let data2 = list2.head.next
         let sum =0;
      
         let carry=0;
         while(data2){
             if(data1){
-                sum = data1.value + data2.value+ carry;
+                sum = data1.val + data2.val+ carry;
                 if(sum>=10){
                     carry=1;
                     sum= sum %10;
-                    sumArr.push(sum)
+                    // sumArr.push(sum)
+                    list3.insertNumber(sum)
                 }else{
                     carry =0;
-                    sumArr.push(sum)
+                    list3.insertNumber(sum)
                 }
                 data1 = data1.next
             }else{
-                sum = data2.value + carry;
+                sum = data2.val + carry;
                 if(sum>=10){
                     carry=1;
                     sum= sum %10;
-                    sumArr.push(sum)
+                    list3.insertNumber(sum)
                 }else{
                     carry =0;
-                    sumArr.push(sum)
+                    list3.insertNumber(sum)
                 }
             }
             data2 = data2.next;
             
         }
         if(carry){
-            sumArr.push(carry)
+            list3.insertNumber(sum)
         }
     }
-    return sumArr
+    const arr= linkedListToArray(list3)
+    return arr;
 };
+
+function linkedListToArray(list3){
+    let arr = [];
+  let current = list3.head;
+
+  while (current) {
+    arr.push(current.val);
+    current = current.next;
+  }
+
+  return arr;
+}
 
 const result = addTwoNumbers([2,4,3], [5,6,4])
 console.log(result);
