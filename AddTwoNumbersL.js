@@ -9,14 +9,12 @@ class ListNode {
     constructor(val=0){
         let node = new Node(val);
         this.head = this.tail = node;
-        // this.length = 1;
     }
 
     insertNumber(val){
         let node = new Node(val);
         this.tail.next = node;
         this.tail = node;
-        // this.length++;
     }
 }
 
@@ -46,7 +44,7 @@ var addTwoNumbers = function(l1, l2) {
         
         while(data1){
             if(data2){
-                sum = data1.val + data2.val+ carry;
+                sum = data1.val ? data1.val : 0 + data2.val ? data2.val : 0+ carry;
                 if(sum>=10){
                     carry=1;
                     sum= sum %10;
@@ -57,7 +55,7 @@ var addTwoNumbers = function(l1, l2) {
                 }
                 data2 = data2.next
             }else{
-                sum = data1.val + carry;
+                sum = data1.val ? data1.val : 0 + data2.val ? data2.val : 0+ carry;
                 if(sum>=10){
                     carry=1;
                     sum= sum %10;
@@ -81,7 +79,7 @@ var addTwoNumbers = function(l1, l2) {
         let carry=0;
         while(data2){
             if(data1){
-                sum = data1.val + data2.val+ carry;
+                sum = data1.val ? data1.val : 0 + data2.val ? data2.val : 0+ carry;
                 if(sum>=10){
                     carry=1;
                     sum= sum %10;
@@ -93,7 +91,7 @@ var addTwoNumbers = function(l1, l2) {
                 }
                 data1 = data1.next
             }else{
-                sum = data2.val + carry;
+                sum = data1.val ? data1.val : 0 + data2.val ? data2.val : 0+ carry;
                 if(sum>=10){
                     carry=1;
                     sum= sum %10;
@@ -126,5 +124,5 @@ function linkedListToArray(list3){
   return arr;
 }
 
-const result = addTwoNumbers([2,4,3], [5,6,4])
+const result = addTwoNumbers([0],[0])
 console.log(result);
