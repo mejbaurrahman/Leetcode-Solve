@@ -1,7 +1,6 @@
 var isAnagram = function(s, t) {
     const tSplit = t.split('');
     const sSplit = s.split('');
-    // console.log(tSplit, sSplit);
     if(s.length !== t.length){
         return false
     }
